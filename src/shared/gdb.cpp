@@ -112,7 +112,7 @@ void GDB::load()
 	GDB_DEBUG(wlog,(slog,L"Loading GDB...\n"));
 
     // process kit map file
-    hash_map<WORD,wstring> mapFile;
+    unordered_map<WORD,wstring> mapFile;
     if (!readMap(this->uniMapFile.c_str(), mapFile))
     {
         GDB_DEBUG(wlog,(slog,L"Unable to find uni-map: %s\n",mapFile));
@@ -120,7 +120,7 @@ void GDB::load()
             this->uniMapFile.c_str());
     }
 
-    for (hash_map<WORD,wstring>::iterator it = mapFile.begin(); it != mapFile.end(); it++)
+    for (unordered_map<WORD,wstring>::iterator it = mapFile.begin(); it != mapFile.end(); it++)
     {
         //LOG(L"GDB map: %d --> {%s}", it->first, it->second.c_str());
         KitCollection kitCol(it->second);
@@ -277,7 +277,7 @@ void GDB::fillKitCollection(KitCollection& col, int kitType, bool extra)
  */
 void GDB::findKitsForTeam(WORD teamId)
 {
-    hash_map<WORD,KitCollection>::iterator it = this->uni.find(teamId);
+    unordered_map<WORD,KitCollection>::iterator it = this->uni.find(teamId);
     if (it != this->uni.end() && !it->second.loaded)
     {
         // players

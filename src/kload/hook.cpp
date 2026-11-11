@@ -17,7 +17,7 @@
 #include <vector>
 #include <algorithm>
 #include <map>
-#include <hash_map>
+#include <unordered_map>
 #include <string>
 
 //#include "apihijack.h"
@@ -38,11 +38,11 @@ extern bool _noshade;
 
 map<DWORD*, DWORD> g_replacedHeaders;
 map<DWORD*, DWORD>::iterator g_replacedHeadersIt;
-hash_map<DWORD, IDirect3DTexture9*> g_replacedMap;
-hash_map<DWORD, IDirect3DTexture9*>::iterator g_replacedMapIt;
+unordered_map<DWORD, IDirect3DTexture9*> g_replacedMap;
+unordered_map<DWORD, IDirect3DTexture9*>::iterator g_replacedMapIt;
 	
-hash_map<DWORD, EditPlayerInfo*> g_editPlayerInfoMap;
-hash_map<DWORD, EditPlayerInfo*>::iterator g_editPlayerInfoMapIt;
+unordered_map<DWORD, EditPlayerInfo*> g_editPlayerInfoMap;
+unordered_map<DWORD, EditPlayerInfo*>::iterator g_editPlayerInfoMapIt;
 
 
 PFNDIRECT3DCREATE9PROC g_orgDirect3DCreate9 = NULL;

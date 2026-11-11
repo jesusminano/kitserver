@@ -23,7 +23,7 @@
 
 #include <map>
 #include <list>
-#include <hash_map>
+#include <unordered_map>
 #include <wchar.h>
 
 //#define CREATE_FLAGS FILE_FLAG_SEQUENTIAL_SCAN | FILE_FLAG_NO_BUFFERING
@@ -94,13 +94,13 @@ public:
 */
 
 // GLOBALS
-hash_map<DWORD,wstring> _player_face;
-hash_map<DWORD,wstring> _player_hair;
-hash_map<DWORD,WORD> _player_face_slot;
-hash_map<DWORD,WORD> _player_hair_slot;
+unordered_map<DWORD,wstring> _player_face;
+unordered_map<DWORD,wstring> _player_hair;
+unordered_map<DWORD,WORD> _player_face_slot;
+unordered_map<DWORD,WORD> _player_hair_slot;
 
-hash_map<DWORD,BYTE> _saved_facebit;
-hash_map<DWORD,BYTE> _saved_hairbit;
+unordered_map<DWORD,BYTE> _saved_facebit;
+unordered_map<DWORD,BYTE> _saved_hairbit;
 
 wstring* _fast_bin_table[NUM_SLOTS-FIRST_FACE_SLOT];
 BYTE _fast_bin_exists[NUM_SLOTS-FIRST_FACE_SLOT];
@@ -297,7 +297,7 @@ void InitMaps()
     ZeroMemory(_fast_bin_table, sizeof(_fast_bin_table));
 
     // process face/hair map file
-    hash_map<DWORD,wstring> mapFile;
+    unordered_map<DWORD,wstring> mapFile;
     wstring mpath(getPesInfo()->gdbDir);
     mpath += L"GDB\\faces\\map.txt";
     if (!readMap(mpath.c_str(), mapFile))
@@ -306,7 +306,7 @@ void InitMaps()
     }
     else
     {
-        for (hash_map<DWORD,wstring>::iterator it = mapFile.begin(); it != mapFile.end(); it++)
+        for (unordered_map<DWORD,wstring>::iterator it = mapFile.begin(); it != mapFile.end(); it++)
         {
             wstring& line = it->second;
             int comma = line.find(',');
@@ -486,8 +486,8 @@ void fservApplyChanges(PLAYER_INFO* players)
     int maxFaceId = 0;
     int minHairId = 2048;
     int maxHairId = 0;
-    hash_map<int,bool> hairsUsed;
-    hash_map<int,bool> facesUsed;
+    unordered_map<int,bool> hairsUsed;
+    unordered_map<int,bool> facesUsed;
 
     bool indexTaken(false);
     WORD numPlayers = (numBytes)?(numBytes/sizeof(PLAYER_INFO)):MAX_PLAYERS;
@@ -513,7 +513,7 @@ void fservApplyChanges(PLAYER_INFO* players)
         bool modified(false);
 
         // assign slots
-        hash_map<DWORD,wstring>::iterator sit;
+        unordered_map<DWORD,wstring>::iterator sit;
         sit = _player_face.find(players[i].id);
         if (sit != _player_face.end()) {
             DWORD slot = FIRST_FACE_SLOT + i*2;
@@ -564,7 +564,7 @@ void fservApplyChanges(PLAYER_INFO* players)
     // BAL players
     for (DWORD id=FIRST_BAL_ID; id<FIRST_BAL_ID+NUM_BAL_PLAYERS; id++) {
         // assign slots
-        hash_map<DWORD,wstring>::iterator sit;
+        unordered_map<DWORD,wstring>::iterator sit;
         sit = _player_face.find(id);
         if (sit != _player_face.end()) {
             DWORD slot = FIRST_FACE_SLOT + (MAX_PLAYERS+id-FIRST_BAL_ID)*2;
@@ -794,7 +794,7 @@ void fservAtOnlineEnter(DWORD src, DWORD dest, DWORD size)
                 pDest->index = 0;
             }
 
-            hash_map<DWORD,BYTE>::iterator it;
+            unordered_map<DWORD,BYTE>::iterator it;
             it = _saved_facebit.find(pSrc->index);
             if (it != _saved_facebit.end()) {
                 addr = (DWORD)&(pDest->specialFace);
@@ -1188,7 +1188,7 @@ void fservWriteEditData(LPCVOID data, DWORD size)
 
     // restore face/hair settings
     PLAYER_INFO* players = (PLAYER_INFO*)data;
-    hash_map<DWORD,BYTE>::iterator it;
+    unordered_map<DWORD,BYTE>::iterator it;
     for (it = _saved_facebit.begin(); it != _saved_facebit.end(); it++) {
         players[it->first].index = 0;
         players[it->first].specialFace &= ~(SPECIAL_FACE | IMPORTED_FACE);
@@ -1216,7 +1216,7 @@ void fservReadReplayData(LPCVOID data, DWORD size)
         LOG(L"Player #%02d: %s (index: 0x%04x)", i+1, wname,
                 rp->players[i].index);
 
-        hash_map<DWORD,BYTE>::iterator sit;
+        unordered_map<DWORD,BYTE>::iterator sit;
         sit = _saved_facebit.find(rp->players[i].index);
         if (sit != _saved_facebit.end()) {
             rp->players[i].specialFace |= SPECIAL_FACE;
@@ -1244,7 +1244,7 @@ void fservWriteReplayData(LPCVOID data, DWORD size)
         LOG(L"Player #%02d: %s (index: 0x%04x)", i+1, wname,
                 rp->players[i].index);
 
-        hash_map<DWORD,BYTE>::iterator sit;
+        unordered_map<DWORD,BYTE>::iterator sit;
         sit = _saved_facebit.find(rp->players[i].index);
         if (sit != _saved_facebit.end()) {
             rp->players[i].specialFace &= ~(SPECIAL_FACE | IMPORTED_FACE);
@@ -1323,7 +1323,7 @@ void fservReadBalData(LPCVOID data, DWORD size)
     Utf8::free(wideName);
 
     // Adjust face/hair bytes, if specified.
-    hash_map<DWORD,WORD>::iterator it;
+    unordered_map<DWORD,WORD>::iterator it;
     it = _player_face_slot.find(bal->bal2.player.id);
     if (it != _player_face_slot.end())
     {
@@ -1375,7 +1375,7 @@ void fservWriteBalData(LPCVOID data, DWORD size)
     Utf8::free(wideName);
 
     // Restore face/hair bytes, if specified.
-    hash_map<DWORD,WORD>::iterator it;
+    unordered_map<DWORD,WORD>::iterator it;
     it = _player_face_slot.find(bal->bal2.player.id);
     if (it != _player_face_slot.end())
     {
