@@ -57,16 +57,19 @@ constexpr const wchar_t* managerLabels[] =
     L"settings",
     L"game",
     L"======== WRONG FILE! =========\n"
-    L"File % s is an unknown EXE - file."
-    L"Therefore,"
+    L"File %s is an unknown EXE-file.\n"
+    L"Therefore,\n"
     L"Kitserver will NOT be attached to it.",
+
     L"======== WRONG FILE! =========\n"
-    L"File %s is a %s EXE instead of a %s EXE-file."
-    L"Therefore,"
+    L"File %s is a %s EXE instead of a %s EXE-file.\n"
+    L"Therefore,\n"
     L"Kitserver will NOT be attached to it.",
-    L"For information on what Kitserver is, what you can do with"
-    L"it and how you install / use it correctly, please read the manual.html"
-    L"which is located in the in the \"docs\" subfolder",
+
+    L"For information on what Kitserver is, what you can do with\n"
+    L"it and how you install / use it correctly, please read the manual.html\n"
+    L"which is located in the in the \"docs\" subfolder\n"
+    L"Do you want to open the manual now?",
 };
 
 #endif
