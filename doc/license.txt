@@ -1,4 +1,4 @@
-Copyright (c) 2003-2024, Juce, Robbie, jminhano
+Copyright (c) 2003-2024, Juce, Robbie, Jesus minano
 
 All rights reserved.
 

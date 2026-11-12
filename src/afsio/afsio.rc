@@ -20,7 +20,7 @@ BEGIN
 		BEGIN
 			VALUE "FileDescription", "AFSIO Module\0"
 			VALUE "FileVersion", KITSERVER_VERSION_STRING
-			VALUE "LegalCopyright", "Copyright (c) 2005-2024 Juce, Robbie, jminhano"
+			VALUE "LegalCopyright", "Copyright (c) 2005-2024 Juce, Robbie, Jesus minano"
 			VALUE "Comments", "AFSIO Module.\r\n\
 This module provides the base functionality for intercepting\
 BIN-loading from AFS (*.img) files. It's intended to be used\

@@ -20,7 +20,7 @@ BEGIN
 		BEGIN
 			VALUE "FileDescription", "AFS2FS Module\0"
 			VALUE "FileVersion", KITSERVER_VERSION_STRING
-			VALUE "LegalCopyright", "Copyright (c) 2005-2024 Juce, Robbie, jminhano"
+			VALUE "LegalCopyright", "Copyright (c) 2005-2024 Juce, Robbie, Jesus minano"
 			VALUE "Comments", "AFS2FS Module.\r\n\
 Manage AFS (.img) game content using custom files and folders.\0"
 		END

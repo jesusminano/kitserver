@@ -15,6 +15,6 @@ Modules implemented:
 Credits
 =======
 
-programming and game analysis: juce, Robbie, jminhano
+programming and game analysis: juce, Robbie, Jesus minano
 with support from: pes5indie, MGPES
 and special thanks to: maticiro

@@ -20,7 +20,7 @@ BEGIN
 		BEGIN
 			VALUE "FileDescription", "LOD Mixer\0"
 			VALUE "FileVersion", KITSERVER_VERSION_STRING
-			VALUE "LegalCopyright", "Copyright (c) 2005-2024 Juce, jminhano"
+			VALUE "LegalCopyright", "Copyright (c) 2005-2024 Juce, Jesus minano"
 			VALUE "Comments", "LOD Mixer.\r\n\
 Misc visual tweaks, fine-tune LOD for players and referees.\0"
 		END
